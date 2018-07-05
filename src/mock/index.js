@@ -25,6 +25,9 @@ Mock.mock(/\/article\/update/, 'post', articleAPI.updateArticle)
 Mock.mock(/\/supplier\/list/, 'get', supplierAPI.getList)
 Mock.mock(/\/supplier\/remove/, 'get', supplierAPI.remove)
 Mock.mock(/\/supplier\/batchremove/, 'get', supplierAPI.batchRemove)
+Mock.mock(/\/supplier\/getinfo/, 'get', supplierAPI.getInfo)
+Mock.mock(/\/supplier\/createinfo/, 'post', supplierAPI.createInfo)
+Mock.mock(/\/supplier\/updateinfo/, 'post', supplierAPI.updateInfo)
 
 
 // // 搜索相关

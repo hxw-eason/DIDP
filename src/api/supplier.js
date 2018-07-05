@@ -26,3 +26,21 @@ export function batchRemoveSupplier(ids) {
       params: ids
     })
 }
+
+//新增
+export function createInfo(data) {
+  return request({
+    url: '/supplier/createinfo',
+    method: 'post',
+    data
+  })
+}
+
+//更新
+export function updateInfo(data) {
+  return request({
+    url: '/supplier/updateinfo',
+    method: 'post',
+    data
+  })
+}

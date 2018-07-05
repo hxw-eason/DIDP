@@ -57,7 +57,7 @@ export const asyncRouterMap = [
       { path: 'company', component: () => import('@/views/basicdata/company'), name: 'company', meta: { title: '分子公司', noCache: true }},
       { path: 'country', component: () => import('@/views/basicdata/country'), name: 'country', meta: { title: '国家信息', noCache: true }},
       { path: 'province', component: () => import('@/views/basicdata/province'), name: 'province', meta: { title: '省份信息', noCache: true }},
-      { path: 'city', component: () => import('@/views/basicdata/currency'), name: 'city', meta: { title: '城市信息', noCache: true }}
+      { path: 'city', component: () => import('@/views/basicdata/city'), name: 'city', meta: { title: '城市信息', noCache: true }}
     ]
   },
   {
