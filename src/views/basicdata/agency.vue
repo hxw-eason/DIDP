@@ -3,14 +3,15 @@
         <!--工具条-->
        <div class="filter-container suppliertoolbar">
            <el-row :gutter="20" class="mt10">
-               <label class="el-form-item__label">国家中文名称:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.countryName" style="width: 160px;" class="filter-item" placeholder="请输入国家中文名" clearable></el-input>
-               <label class="el-form-item__label">国际二字码:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.twoWord" style="width: 160px;" class="filter-item" placeholder="请输入国际二字码" clearable></el-input>
-               <label class="el-form-item__label">国家英文名称:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.countryEingshName" style="width: 160px;" class="filter-item" placeholder="请输入国家英文名" clearable></el-input>
-               <label class="el-form-item__label">国家编码:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.countryNumber" style="width: 150px;" class="filter-item" placeholder="请输入国家编码" clearable></el-input>
+               <label class="el-form-item__label">办事处编号:</label>
+               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.supplierBH" style="width: 180px;" class="filter-item" placeholder="请输入办事处编号" clearable></el-input>
+               <label class="el-form-item__label">办事处名称:</label>
+               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.companyType" style="width: 160px;" class="filter-item" placeholder="请输入办事处名称" clearable></el-input>
+               <label class="el-form-item__label">所属城市:</label>
+               <el-select class="filter-item" style="width: 130px" v-model="listQuery.companyName" placeholder="请选择">
+                    <el-option v-for="item in companyNameOptions" :key="item" :label="item" :value="item">
+                    </el-option>
+                </el-select>
                <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查询</el-button>
                <el-button class="filter-item" type="primary" icon="el-icon-refresh">重置</el-button>
            </el-row>
@@ -22,28 +23,24 @@
         </div>
         <el-table :data="supplierlistary" @selection-change="selsChange" v-loading.body="listLoading" ref="multipleTable" element-loading-text="拼命加载中..." fit highlight-current-row style="width: 100%">
             <el-table-column align="center" type="selection" width="55"></el-table-column>
-            <el-table-column align="center" label="国家编码" >
+            <el-table-column align="center" label="办事处编号" width="110">
                 <template slot-scope="scope">
-                    <span>{{scope.row.countryNumber}}</span>
+                    <span>{{scope.row.supplierBH}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="国家名称" >
+            <el-table-column align="center" label="办事处名称" width="140">
                  <template slot-scope="scope">
-                    <span>{{scope.row.countryName}}</span>
+                    <span>{{scope.row.companyType}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" prop="twoWord" label="国际二字码" ></el-table-column>
-            <el-table-column align="center" prop="countryEingshName" label="国家英文名称"></el-table-column>
-            <el-table-column align="center" prop="countryShortName" label="国家简称" ></el-table-column>
-            <el-table-column align="center" prop="cooperationType" label="是否税收协定国" >
-                <template slot-scope="scope">
-                    <el-tag type="success" v-if="scope.row.cooperationType=='是'">{{scope.row.cooperationType}}</el-tag>
-                    <el-tag type="danger" v-if="scope.row.cooperationType=='否'">{{scope.row.cooperationType}}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column align="center" prop="supplierName" label="修改人"></el-table-column>
-            <el-table-column align="center" prop="modifyTime" label="修改时间" width="160"></el-table-column>
-            <el-table-column align="center" label="操作"  class-name="small-padding fixed-width" fixed="right">
+            <el-table-column align="center" prop="companyName" label="所属城市" width="120"></el-table-column>
+            <el-table-column align="center" prop="countryName" label="所属国家" width="130"></el-table-column>
+            <el-table-column align="center" prop="continent" label="所属大洲" width="100"></el-table-column>
+            <el-table-column align="center" prop="supplierName" label="联系人" width="120"></el-table-column>
+            <el-table-column align="center" prop="companyPhone" label="联系电话" width="120"></el-table-column>
+            <el-table-column align="center" prop="supplierSBH" label="传真" width="120"></el-table-column>
+            <el-table-column align="center" prop="supplierAddr" label="地址" width=""></el-table-column>
+            <el-table-column align="center" label="操作" width="110" class-name="small-padding fixed-width" fixed="right">
                 <template slot-scope="scope">
                     <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button>
                 </template>
@@ -58,38 +55,60 @@
             <el-form :rules="rules" ref="dataForm" :model="temp" label-position="right" label-width="130px">
                 <el-row :gutter="40">
                     <el-col :span="12">
-                        <el-form-item label="国家编码:" prop="countryNumber">
-                            <el-input v-model="temp.countryNumber"></el-input>
+                        <el-form-item label="办事处编号:" prop="supplierBH">
+                            <el-input v-model="temp.supplierBH"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="国家中文名称:" prop="countryName">
-                            <el-input v-model="temp.countryName"></el-input>
+                        <el-form-item label="办事处名称:" prop="companyType">
+                            <el-input v-model="temp.companyType"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="国家简称:" prop="countryShortName">
-                            <el-input v-model="temp.countryShortName"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="是否税收协定国:" prop="cooperationType">
-                            <el-select v-model="temp.cooperationType" placeholder="请选择">
-                                <el-option v-for="item in cooperationTypeOptions" :key="item" :label="item" :value="item">
+                        <el-form-item label="所属城市:" prop="companyName">
+                            <el-select v-model="temp.companyName" placeholder="请选择">
+                                <el-option v-for="item in companyNameOptions" :key="item" :label="item" :value="item">
                                 </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="国际二字码:" prop="twoWord">
-                            <el-input v-model="temp.twoWord"></el-input>
+                        <el-form-item label="所属国家:" prop="countryName">
+                            <el-select v-model="temp.countryName" placeholder="请选择">
+                                <el-option v-for="item in countryNameOptions" :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
-                        <el-form-item label="国家英文名称:" prop="countryEingshName">
-                            <el-input v-model="temp.countryEingshName"></el-input>
+                        <el-form-item label="所属大洲:" prop="continent">
+                            <el-select v-model="temp.continent" placeholder="请选择">
+                                <el-option v-for="item in continentOptions" :key="item" :label="item" :value="item">
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="联系人:">
+                            <el-input v-model="temp.supplierName"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="联系电话:">
+                            <el-input v-model="temp.companyPhone"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="传真:">
+                            <el-input v-model="temp.supplierSBH"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="24">
+                        <el-form-item label="地址:">
+                            <el-input v-model="temp.supplierAddr"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    
                 </el-row>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -114,37 +133,41 @@ export default {
             listQuery: {
                 page: 1,
                 limit: 20,
-                countryNumber: undefined,
-                countryName: undefined,
-                twoWord: undefined,
-                countryEingshName: undefined
+                supplierBH: undefined,
+                companyType: undefined,
+                companyName: undefined,
             },
             multipleSelection: [],   //列表选中列
             downloadLoading: false,  //下载文件状态
-            cooperationTypeOptions: ['是','否'],
+            continentOptions: ['亚洲','美洲','非洲','澳洲','欧洲'],
+            companyNameOptions: ['北京','上海','广州'],
+            countryNameOptions: ['中国','巴拿马','加拿大','美国','俄罗斯','日本'],
+
             //修改
             temp: {
-                countryNumber: '',
+                supplierBH: '',
+                companyType: '',
+                companyName: '',
                 countryName: '',
-                twoWord: '',
-                countryEingshName: '',
-                countryShortName: '',
-                cooperationType: '',
+                continent: '',
+                supplierName: '',
+                companyPhone: '',
+                supplierSBH: '',
+                supplierAddr: '',
             },
             
             dialogFormVisible: false,
             dialogStatus: '',
             textMap: {
-                update: '修改国家信息',
-                create: '新增国家信息'
+                update: '修改办事处信息',
+                create: '新增办事处信息'
             },
             rules: {
-                countryNumber: [{ required: true, message: '国家编码必填', trigger: 'blur' }],
-                countryName: [{ required: true, message: '国家中文名称必填', trigger: 'blur' }],
-                countryShortName: [{ required: true, message: '国家简称必填', trigger: 'blur' }],
-                cooperationType: [{ required: true, message: '是否税收协定国必选', trigger: 'blur' }],
-                twoWord: [{ required: true, message: '国际二字码必填', trigger: 'blur' }],
-                countryEingshName: [{ required: true, message: '国家英文名称必填', trigger: 'blur' }],
+                supplierBH: [{ required: true, message: '办事处编号必填', trigger: 'blur' }],
+                companyType: [{ required: true, message: '办事处名称必填', trigger: 'blur' }],
+                companyName: [{ required: true, message: '所属城市必选', trigger: 'blur' }],
+                countryName: [{ required: true, message: '所属国家必选', trigger: 'blur' }],
+                continent: [{ required: true, message: '所属大洲必选', trigger: 'blur' }],
             },
         }
     },
@@ -235,14 +258,14 @@ export default {
         //下载已选择项
         downloadSels() {
             this.downloadLoading = true
-            import('@/vendor/Export2Excel').then(excel => {const tHeader = ['国家编码', '国家中文名称', '国际二字码', '国家英文名称', '国家简称']
-                const filterVal = ['countryNumber', 'countryName', 'twoWord', 'countryEingshName', 'countryShortName']
+            import('@/vendor/Export2Excel').then(excel => {const tHeader = ['办事处编号', '办事处名称', '所属城市', '所属国家', '所属大洲']
+                const filterVal = ['supplierBH', 'companyType', 'companyName', 'countryName', 'continent']
                 const list = this.multipleSelection
                 const data = this.formatJson(filterVal, list)
                 excel.export_json_to_excel({
                     header: tHeader,
                     data,
-                    filename: "国家信息"
+                    filename: "办事处信息"
                 })
                 this.$refs.multipleTable.clearSelection()
                 this.downloadLoading = false
@@ -289,12 +312,15 @@ export default {
         //新增
         resetTemp() {
             this.temp = {
-                countryNumber: '',
+                supplierBH: '',
+                companyType: '',
+                companyName: '',
                 countryName: '',
-                twoWord: '',
-                countryEingshName: '',
-                countryShortName: '',
-                cooperationType: '',
+                continent: '',
+                supplierName: '',
+                companyPhone: '',
+                supplierSBH: '',
+                supplierAddr: '',
             }
         },
         //新增弹窗

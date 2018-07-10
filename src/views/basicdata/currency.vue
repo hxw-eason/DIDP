@@ -161,8 +161,8 @@ export default {
                 console.log("1111111111111")
                 //NProgress.start();
                 let para = { ids: ids }
-                console.log("333333333333")
-                console.log("para：" + para)
+                // console.log("333333333333")
+                // console.log("para：" + para)
                 batchRemoveSupplier(para).then((res) => {
                     console.log("res=" + res)
                     this.listLoading = false

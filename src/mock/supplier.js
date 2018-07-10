@@ -27,6 +27,7 @@ for (let i = 0; i < count; i++) {
       'companyNumber|1': ['CAN','BBN','ANN'],
       'companyName|1': ['北京','上海','广州'],
       'companyType|1': ['总部','分公司','子公司'],
+      'provinceType|1': ['广东省','上海','福建省','湖南省','海南省','湖北省'],
       companyPhone: '@string(number, 11)',
       companyEmail: '@string(number, 9)@qq.com',
       'companyBankName|1': ['广州分公司','北京分公司','上海分公司'],
@@ -35,6 +36,7 @@ for (let i = 0; i < count; i++) {
       countryNumber: '@string(number, 2)',
       'countryName|1': ['中国','巴拿马','加拿大','美国','俄罗斯','日本'],
       'twoWord|1': ['CN','PA','CA','US','JP','RU'],
+      'continent|1': ['亚洲','美洲','非洲','澳洲','欧洲'],
       'countryEingshName|1': ['China','Panama','Canada','united states','Russia','Japan'],
       'countryShortName|1': ['CHINA','Panama','Canada','USA','Russia','Japan'],
       'cooperationType|1': ['是', '否'],
@@ -49,7 +51,7 @@ export default {
     //列表
     getList: config => {
         // console.log('config.url=' + config.url)
-        let { supplierBH, selstype, supplierBM, supplierName, supplierZZBM, companyNumber, companyName, companyType, companyPhone, companyEmail, companyBank, countryNumber, countryName, twoWord, countryEingshName, cooperationType, cityName, provinceName, page = 1, limit = 20 } = param2Obj(config.url)
+        let { supplierBH, selstype, supplierBM, supplierName, supplierZZBM, companyNumber, companyName, continent, companyType, provinceType, companyPhone, companyEmail, companyBank, countryNumber, countryName, twoWord, countryEingshName, cooperationType, cityName, provinceName, page = 1, limit = 20 } = param2Obj(config.url)
     
         let mockList = List.filter(item => {
             if (supplierBH && item.supplierBH.indexOf(supplierBH) < 0) return false
@@ -64,6 +66,7 @@ export default {
             if (companyEmail && item.companyEmail.indexOf(companyEmail) < 0) return false
             if (companyBank && item.companyBank.indexOf(companyBank) < 0) return false
             if (companyType && item.companyType !== companyType) return false
+            if (provinceType && item.provinceType !== provinceType) return false
 
             if (countryNumber && item.countryNumber.indexOf(countryNumber) < 0) return false
             if (countryName && item.countryName.indexOf(countryName) < 0) return false
@@ -72,6 +75,7 @@ export default {
 
             if (cityName && item.cityName.indexOf(cityName) < 0) return false
             if (provinceName && item.provinceName.indexOf(provinceName) < 0) return false
+            if (continent && item.continent.indexOf(continent) < 0) return false
             if (cooperationType && item.cooperationType !== cooperationType) return false
 
             return true

@@ -39,7 +39,8 @@ export const asyncRouterMap = [
     },
     children: [
       { path: 'complex-table', component: () => import('@/views/maindata/complexTable'), name: 'complexTable', meta: { title: '供应商例子' }},
-      { path: 'supplier', component: () => import('@/views/maindata/supplier'), name: 'supplier', meta: { title: '供应商信息' }}
+      { path: 'supplier', component: () => import('@/views/maindata/supplier'), name: 'supplier', meta: { title: '供应商信息管理' }},
+      { path: 'customer', component: () => import('@/views/maindata/customer'), name: 'customer', meta: { title: '客户信息管理' }}
     ]
   },
   {
@@ -55,6 +56,9 @@ export const asyncRouterMap = [
       { path: 'system', component: () => import('@/views/basicdata/system'), name: 'system', meta: { title: '系统注册', noCache: true }},
       { path: 'currency', component: () => import('@/views/basicdata/currency'), name: 'currency', meta: { title: '货币信息', noCache: true }},
       { path: 'company', component: () => import('@/views/basicdata/company'), name: 'company', meta: { title: '分子公司', noCache: true }},
+      { path: 'sales', component: () => import('@/views/basicdata/sales'), name: 'sales', meta: { title: '营业部', noCache: true }},
+      { path: 'agency', component: () => import('@/views/basicdata/agency'), name: 'agency', meta: { title: '办事处', noCache: true }},
+      { path: 'accounting', component: () => import('@/views/basicdata/accounting'), name: 'accounting', meta: { title: '会计主体', noCache: true }},
       { path: 'country', component: () => import('@/views/basicdata/country'), name: 'country', meta: { title: '国家信息', noCache: true }},
       { path: 'province', component: () => import('@/views/basicdata/province'), name: 'province', meta: { title: '省份信息', noCache: true }},
       { path: 'city', component: () => import('@/views/basicdata/city'), name: 'city', meta: { title: '城市信息', noCache: true }}
