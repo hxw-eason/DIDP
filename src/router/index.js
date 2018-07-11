@@ -53,7 +53,6 @@ export const asyncRouterMap = [
       icon: 'chart'
     },
     children: [
-      { path: 'system', component: () => import('@/views/basicdata/system'), name: 'system', meta: { title: '系统注册', noCache: true }},
       { path: 'currency', component: () => import('@/views/basicdata/currency'), name: 'currency', meta: { title: '货币信息', noCache: true }},
       { path: 'company', component: () => import('@/views/basicdata/company'), name: 'company', meta: { title: '分子公司', noCache: true }},
       { path: 'sales', component: () => import('@/views/basicdata/sales'), name: 'sales', meta: { title: '营业部', noCache: true }},
@@ -62,6 +61,22 @@ export const asyncRouterMap = [
       { path: 'country', component: () => import('@/views/basicdata/country'), name: 'country', meta: { title: '国家信息', noCache: true }},
       { path: 'province', component: () => import('@/views/basicdata/province'), name: 'province', meta: { title: '省份信息', noCache: true }},
       { path: 'city', component: () => import('@/views/basicdata/city'), name: 'city', meta: { title: '城市信息', noCache: true }}
+    ]
+  },
+  {
+    path: '/maindataconfig',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'maindataconfig',
+    meta: {
+      title: '主数据配置',
+      icon: 'example'
+    },
+    children: [
+      { path: 'datadistri', component: () => import('@/views/maindataconfig/datadistri'), name: 'datadistri', meta: { title: '主数据分发', noCache: true }},
+      { path: 'datareception', component: () => import('@/views/maindataconfig/datareception'), name: 'datareception', meta: { title: '主数据接收', noCache: true }},
+      { path: 'datadictionary', component: () => import('@/views/maindataconfig/datadictionary'), name: 'datadictionary', meta: { title: '主数据数据字典', noCache: true }},
+      { path: 'datapermission', component: () => import('@/views/maindataconfig/datapermission'), name: 'datapermission', meta: { title: '主数据访问权限', noCache: true }}
     ]
   },
   {
@@ -74,8 +89,25 @@ export const asyncRouterMap = [
       icon: 'example'
     },
     children: [
-      { path: 'configuration', component: () => import('@/views/systemmang/configuration'), name: 'configuration', meta: { title: '主数据属性配置', noCache: true }},
-      { path: 'pushlogs', component: () => import('@/views/systemmang/pushlogs'), name: 'pushlogs', meta: { title: '主数据推送日志', noCache: true }}
+      { path: 'datamanagement', component: () => import('@/views/systemmang/datamanagement'), name: 'datamanagement', meta: { title: '数据大小类管理', noCache: true }},
+      { path: 'rolemanagement', component: () => import('@/views/systemmang/rolemanagement'), name: 'rolemanagement', meta: { title: '角色管理', noCache: true }},
+      { path: 'system', component: () => import('@/views/systemmang/system'), name: 'system', meta: { title: '系统注册', noCache: true }},
+      { path: 'permissiongl', component: () => import('@/views/systemmang/permissiongl'), name: 'permissiongl', meta: { title: '权限管理', noCache: true }}
+    ]
+  },
+  {
+    path: '/logmanagement',
+    component: Layout,
+    redirect: 'noredirect',
+    name: 'logmanagement',
+    meta: {
+      title: '日志管理',
+      icon: 'example'
+    },
+    children: [
+      { path: 'receivelog', component: () => import('@/views/logmanagement/receivelog'), name: 'receivelog', meta: { title: '主数据接收日志', noCache: true }},
+      { path: 'pushlog', component: () => import('@/views/logmanagement/pushlog'), name: 'pushlog', meta: { title: '主数据推送日志', noCache: true }},
+      { path: 'systemlog', component: () => import('@/views/logmanagement/systemlog'), name: 'systemlog', meta: { title: '系统日志', noCache: true }}
     ]
   }
 ]

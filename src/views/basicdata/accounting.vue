@@ -3,15 +3,10 @@
         <!--工具条-->
        <div class="filter-container suppliertoolbar">
            <el-row :gutter="20" class="mt10">
-               <label class="el-form-item__label">办事处编号:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.supplierBH" style="width: 180px;" class="filter-item" placeholder="请输入办事处编号" clearable></el-input>
-               <label class="el-form-item__label">办事处名称:</label>
-               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.companyType" style="width: 160px;" class="filter-item" placeholder="请输入办事处名称" clearable></el-input>
-               <label class="el-form-item__label">所属城市:</label>
-               <el-select class="filter-item" style="width: 130px" v-model="listQuery.companyName" placeholder="请选择">
-                    <el-option v-for="item in companyNameOptions" :key="item" :label="item" :value="item">
-                    </el-option>
-                </el-select>
+               <label class="el-form-item__label">会计主体名称:</label>
+               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.companyBankName" style="width: 180px;" class="filter-item" placeholder="请输入会计主体名称" clearable></el-input>
+               <label class="el-form-item__label">OU代码:</label>
+               <el-input @keyup.enter.native="handleFilter" v-model="listQuery.supplierSBH" style="width: 160px;" class="filter-item" placeholder="请输入OU代码" clearable></el-input>
                <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查询</el-button>
                <el-button class="filter-item" type="primary" icon="el-icon-refresh">重置</el-button>
            </el-row>
@@ -23,23 +18,17 @@
         </div>
         <el-table :data="supplierlistary" @selection-change="selsChange" v-loading.body="listLoading" ref="multipleTable" element-loading-text="拼命加载中..." fit highlight-current-row style="width: 100%">
             <el-table-column align="center" type="selection" width="55"></el-table-column>
-            <el-table-column align="center" label="办事处编号" width="110">
+            <el-table-column align="center" label="会计主体名称">
                 <template slot-scope="scope">
-                    <span>{{scope.row.supplierBH}}</span>
+                    <span>{{scope.row.companyBankName}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" label="办事处名称" width="140">
+            <el-table-column align="center" label="类型">
                  <template slot-scope="scope">
                     <span>{{scope.row.companyType}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center" prop="companyName" label="所属城市" width="120"></el-table-column>
-            <el-table-column align="center" prop="countryName" label="所属国家" width="130"></el-table-column>
-            <el-table-column align="center" prop="continent" label="所属大洲" width="100"></el-table-column>
-            <el-table-column align="center" prop="supplierName" label="联系人" width="120"></el-table-column>
-            <el-table-column align="center" prop="companyPhone" label="联系电话" width="120"></el-table-column>
-            <el-table-column align="center" prop="supplierSBH" label="传真" width="120"></el-table-column>
-            <el-table-column align="center" prop="supplierAddr" label="地址" width=""></el-table-column>
+            <el-table-column align="center" prop="supplierSBH" label="OU代码"></el-table-column>
             <el-table-column align="center" label="操作" width="110" class-name="small-padding fixed-width" fixed="right">
                 <template slot-scope="scope">
                     <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button>
@@ -52,64 +41,13 @@
         </div>
         <!-- 修改，新增弹出框 -->
         <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-            <el-form :rules="rules" ref="dataForm" :model="temp" label-position="right" label-width="130px">
-                <el-row :gutter="40">
-                    <el-col :span="12">
-                        <el-form-item label="办事处编号:" prop="supplierBH">
-                            <el-input v-model="temp.supplierBH"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="办事处名称:" prop="companyType">
-                            <el-input v-model="temp.companyType"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="所属城市:" prop="companyName">
-                            <el-select v-model="temp.companyName" placeholder="请选择">
-                                <el-option v-for="item in companyNameOptions" :key="item" :label="item" :value="item">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="所属国家:" prop="countryName">
-                            <el-select v-model="temp.countryName" placeholder="请选择">
-                                <el-option v-for="item in countryNameOptions" :key="item" :label="item" :value="item">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="所属大洲:" prop="continent">
-                            <el-select v-model="temp.continent" placeholder="请选择">
-                                <el-option v-for="item in continentOptions" :key="item" :label="item" :value="item">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="联系人:">
-                            <el-input v-model="temp.supplierName"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="联系电话:">
-                            <el-input v-model="temp.companyPhone"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="12">
-                        <el-form-item label="传真:">
-                            <el-input v-model="temp.supplierSBH"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="24">
-                        <el-form-item label="地址:">
-                            <el-input v-model="temp.supplierAddr"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    
-                </el-row>
+            <el-form :rules="rules" ref="dataForm" :model="temp" label-position="left" label-width="120px" style='width: 400px; margin-left:50px;'>
+                <el-form-item label="会计主体名称:" prop="companyBankName">
+                    <el-input v-model="temp.companyBankName"></el-input>
+                </el-form-item>
+                <el-form-item label="OU代码:" prop="supplierSBH">
+                    <el-input v-model="temp.supplierSBH"></el-input>
+                </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -133,41 +71,27 @@ export default {
             listQuery: {
                 page: 1,
                 limit: 20,
-                supplierBH: undefined,
-                companyType: undefined,
-                companyName: undefined,
+                companyBankName: undefined,
+                supplierSBH: undefined,
             },
             multipleSelection: [],   //列表选中列
             downloadLoading: false,  //下载文件状态
-            continentOptions: ['亚洲','美洲','非洲','澳洲','欧洲'],
-            companyNameOptions: ['北京','上海','广州'],
-            countryNameOptions: ['中国','巴拿马','加拿大','美国','俄罗斯','日本'],
-
+           
             //修改
             temp: {
-                supplierBH: '',
-                companyType: '',
-                companyName: '',
-                countryName: '',
-                continent: '',
-                supplierName: '',
-                companyPhone: '',
+                companyBankName: '',
                 supplierSBH: '',
-                supplierAddr: '',
             },
             
             dialogFormVisible: false,
             dialogStatus: '',
             textMap: {
-                update: '修改办事处信息',
-                create: '新增办事处信息'
+                update: '修改会计主体信息',
+                create: '新增会计主体信息'
             },
             rules: {
-                supplierBH: [{ required: true, message: '办事处编号必填', trigger: 'blur' }],
-                companyType: [{ required: true, message: '办事处名称必填', trigger: 'blur' }],
-                companyName: [{ required: true, message: '所属城市必选', trigger: 'blur' }],
-                countryName: [{ required: true, message: '所属国家必选', trigger: 'blur' }],
-                continent: [{ required: true, message: '所属大洲必选', trigger: 'blur' }],
+                companyBankName: [{ required: true, message: '会计主体名称必填', trigger: 'blur' }],
+                supplierSBH: [{ required: true, message: 'OU代码必填', trigger: 'blur' }],
             },
         }
     },
@@ -258,14 +182,14 @@ export default {
         //下载已选择项
         downloadSels() {
             this.downloadLoading = true
-            import('@/vendor/Export2Excel').then(excel => {const tHeader = ['办事处编号', '办事处名称', '所属城市', '所属国家', '所属大洲']
-                const filterVal = ['supplierBH', 'companyType', 'companyName', 'countryName', 'continent']
+            import('@/vendor/Export2Excel').then(excel => {const tHeader = ['会计主体名称', '类型', 'OU代码']
+                const filterVal = ['companyBankName', 'companyType', 'supplierSBH']
                 const list = this.multipleSelection
                 const data = this.formatJson(filterVal, list)
                 excel.export_json_to_excel({
                     header: tHeader,
                     data,
-                    filename: "办事处信息"
+                    filename: "会计主体信息"
                 })
                 this.$refs.multipleTable.clearSelection()
                 this.downloadLoading = false
@@ -312,15 +236,8 @@ export default {
         //新增
         resetTemp() {
             this.temp = {
-                supplierBH: '',
-                companyType: '',
-                companyName: '',
-                countryName: '',
-                continent: '',
-                supplierName: '',
-                companyPhone: '',
+                companyBankName: '',
                 supplierSBH: '',
-                supplierAddr: '',
             }
         },
         //新增弹窗

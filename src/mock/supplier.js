@@ -42,8 +42,12 @@ for (let i = 0; i < count; i++) {
       'cooperationType|1': ['是', '否'],
       modifyTime: '@datetime()',
 
+      'cityType|1': ['国内', '国际'],
       cityName: '@city()',
       provinceName: '@province()',
+
+      'dataType|1': ['供应商', '组织机构'],
+      'successType|1': ['成功', '失败'],
     }))
 }
 
@@ -51,7 +55,7 @@ export default {
     //列表
     getList: config => {
         // console.log('config.url=' + config.url)
-        let { supplierBH, selstype, supplierBM, supplierName, supplierZZBM, companyNumber, companyName, continent, companyType, provinceType, companyPhone, companyEmail, companyBank, countryNumber, countryName, twoWord, countryEingshName, cooperationType, cityName, provinceName, page = 1, limit = 20 } = param2Obj(config.url)
+        let { supplierBH, selstype, supplierBM, supplierName, supplierZZBM, companyNumber, companyName, continent, cityType, dataType, successType, companyType, provinceType, companyPhone, companyEmail, companyBank, countryNumber, countryName, twoWord, countryEingshName, cooperationType, cityName, provinceName, page = 1, limit = 20 } = param2Obj(config.url)
     
         let mockList = List.filter(item => {
             if (supplierBH && item.supplierBH.indexOf(supplierBH) < 0) return false
@@ -77,6 +81,10 @@ export default {
             if (provinceName && item.provinceName.indexOf(provinceName) < 0) return false
             if (continent && item.continent.indexOf(continent) < 0) return false
             if (cooperationType && item.cooperationType !== cooperationType) return false
+
+            if (cityType && item.cityType !== cityType) return false
+            if (dataType && item.dataType !== dataType) return false
+            if (successType && item.successType !== successType) return false
 
             return true
         })
