@@ -70,7 +70,7 @@ export const asyncRouterMap = [
     name: 'maindataconfig',
     meta: {
       title: '主数据配置',
-      icon: 'example'
+      icon: 'component'
     },
     children: [
       { path: 'datadistri', component: () => import('@/views/maindataconfig/datadistri'), name: 'datadistri', meta: { title: '主数据分发', noCache: true }},
@@ -91,6 +91,7 @@ export const asyncRouterMap = [
     children: [
       { path: 'datamanagement', component: () => import('@/views/systemmang/datamanagement'), name: 'datamanagement', meta: { title: '数据大小类管理', noCache: true }},
       { path: 'rolemanagement', component: () => import('@/views/systemmang/rolemanagement'), name: 'rolemanagement', meta: { title: '角色管理', noCache: true }},
+      { path: 'usermanagement', component: () => import('@/views/systemmang/usermanagement'), name: 'usermanagement', meta: { title: '用户管理', noCache: true }},
       { path: 'system', component: () => import('@/views/systemmang/system'), name: 'system', meta: { title: '系统注册', noCache: true }},
       { path: 'permissiongl', component: () => import('@/views/systemmang/permissiongl'), name: 'permissiongl', meta: { title: '权限管理', noCache: true }}
     ]
@@ -102,7 +103,7 @@ export const asyncRouterMap = [
     name: 'logmanagement',
     meta: {
       title: '日志管理',
-      icon: 'example'
+      icon: 'bug'
     },
     children: [
       { path: 'receivelog', component: () => import('@/views/logmanagement/receivelog'), name: 'receivelog', meta: { title: '主数据接收日志', noCache: true }},
